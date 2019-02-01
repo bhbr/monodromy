@@ -9,7 +9,7 @@ from matplotlib.colors import hsv_to_rgb
 from scipy.optimize import root
 
 TAU = 2*np.pi
-dim = 301
+dim = 451
 scale = 1
 dim_scaled = int(scale * dim)
 circle_size = 5
@@ -83,11 +83,12 @@ def draw_function(f, in_quadrant = (0,0)):
     mySurf_scaled = pg.transform.scale(mySurf,(dim_scaled,dim_scaled))
     window.blit(mySurf_scaled,(in_quadrant[1]*width,in_quadrant[0]*height))
 
+def draw_functions():
 
-draw_function(lambda t: p(h(t)), in_quadrant = (0,0))
-draw_function(g, in_quadrant = (0,1))
-draw_function(p, in_quadrant = (1,0))
-draw_function(lambda w: w, in_quadrant = (1,1))
+    draw_function(lambda t: p(h(t)), in_quadrant = (0,0))
+    draw_function(g, in_quadrant = (0,1))
+    draw_function(p, in_quadrant = (1,0))
+    draw_function(lambda w: w, in_quadrant = (1,1))
 
 e = np.cos(TAU/6) + 1j*np.sin(TAU/6)
 preimages_t = [3**(-0.5)*e**i for i in range(6)]
@@ -149,7 +150,7 @@ def complex_to_pixel(z0, in_quadrant = (0,0)):
 
 
 
-
+draw_functions()
 draw_preimages()
 
 
@@ -175,5 +176,7 @@ while running:
             # end dragging
             dragging = False
 
-
+        elif myEvent.type == pg.KEYDOWN:
+            draw_functions()
+            draw_preimages()
 
